@@ -1,0 +1,27 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th><a href="{% url 'bboard:post_list' %}">Back to the main page</a></th>
+        </tr>
+        <h2>Comment</h2>
+        <tr>
+            <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Author' }}</th>
+            <th style="background-color: #FFC107; color: #000000;">{{ 'Title' }}</th>
+            <th style="background-color: #3498DB; color: #ffffff;">{{ 'Text' }}</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ comment.author }}</td>
+            <td>{{ comment.post }}</td>
+            <td>{{ comment.text }}</td>
+
+        </tr>
+    </tbody>
+</table>
+
+{% endblock content %}

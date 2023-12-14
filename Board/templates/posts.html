@@ -1,0 +1,53 @@
+{% extends 'flatpages/default.html' %}
+
+
+
+{% block content %}
+<h1>my posts</h1>
+<p>{{ 'Total posts:' }} : {{posts | length}}</p>
+
+  {% if posts %}
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+            <button class="btn btn-primary" style="background-color: #28a745;"  type="button">
+                <a href="{% url 'bboard:post_add' %}" style="color: white">Create a new post</a>
+            </button>
+            </th>
+            <th>
+                <button class="btn btn-primary" style="background-color: #28a745;"  type="button">
+                <a href="{% url 'bboard:comment_add' %}" style="color: white">Create a new comment</a>
+                </button>
+            </th>
+
+        </tr>
+        <tr>
+            <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Author' }}</th>
+            <th style="background-color: #FFC107; color: #000000;">{{ 'Title' }}</th>
+            <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Text' }}</th>
+            <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Category' }}</th>
+
+        </tr>
+    </thead>
+    {% for post in posts %}
+      <tbody>
+        <tr>
+            <td>{{ post.author }}</td>
+            <td><a href="{% url 'bboard:post_detail' post.id %}">{{ post.title }}</a></td>
+            <td><a href="{% url 'bboard:post_edit' post.id %}">{{ post.text|safe }}</a></td>
+            <td>
+                        {% for category in post.category.all %}
+                        <a href="{% url 'bboard:category_list' category.id %}">{{category}}</a>
+                        {% endfor %}
+                    </td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+  {% else %}
+   <th><a href="{% url 'bboard:post_add' %}">Create a new post</a></th>
+   <h2> No posts! </h2>
+  {% endif %}
+
+{% endblock content %}

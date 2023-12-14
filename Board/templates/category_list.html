@@ -1,0 +1,45 @@
+{% extends 'flatpages/default.html'%}
+
+
+{% block content %}
+    {% if is_not_subscriber %}
+        <p class="text-center"> <a href="{% url 'bboard:subscribe' category.id %}" class="btn btn-secondary btn-sm">Subscribe</a></p>
+    {% endif %}
+   <h1 style="background-color: #3498DB; color: #ffffff;">All the news</h1>
+   <p style="color: #29ABCA;">Total news: {{ category_list|length }}</p>
+<head>
+    Title
+</head>
+<body>
+<hr>
+{% if category_list %}
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Author' }}</th>
+                <th style="background-color: #FFC107; color: #000000;">{{ 'Title' }}</th>
+                <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Text' }}</th>
+                <th style="background-color: #29ABCA; color: #ffffff;">{{ 'Category' }}</th>
+
+           </thead>
+           <tbody>
+                {% for post in category_list %}
+                <tr>
+                    <td>{{ post.author }}</td>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.text }}</td>
+                    <td>
+                        {% for category in post.category.all %}
+                        <a href="{% url 'bboard:category_list' category.id %}">{{category}}</a>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+
+           </tbody>
+
+        </table>
+
+{% endif %}
+
+</body>
+{% endblock content %}
